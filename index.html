@@ -55,9 +55,6 @@
                   <ion-list id="saved"></ion-list>
               </ion-content>
             </ion-tab>
-          
-
-          
             <ion-tab-bar slot="bottom">
               <ion-tab-button tab="tab-schedule">
                 <ion-icon name="home"></ion-icon>
@@ -100,6 +97,20 @@ function generatePassword() {
             localStorage.setItem("data",data + `<ion-item style="padding:5px;">Name : <ion-text color="primary"> ${name.value}</ion-text> , Password : <ion-text color="primary"> ${pass.innerHTML}</ion-text></ion-item><br>`)
             document.getElementById("saved").innerHTML = localStorage.getItem("data")
             document.getElementById("badge").innerHTML = localStorage.getItem("count")
+            const searchbar = document.getElementById('search');
+    const items = Array.from(document.getElementById('saved').children);
+
+      searchbar.addEventListener('ionInput', handleInput);
+
+      function handleInput(event) {
+        const query = event.target.value.toLowerCase();
+        requestAnimationFrame(() => {
+          items.forEach((item) => {
+            const shouldShow = item.textContent.toLowerCase().indexOf(query) > -1;
+            item.style.display = shouldShow ? 'block' : 'none';
+          });
+        });
+      }
         }
 
     } else{
@@ -113,6 +124,20 @@ function generatePassword() {
             localStorage.setItem("data",`<ion-item style="padding:5px;">Name : <ion-text color="primary"> ${name.value}</ion-text> , Password : <ion-text color="primary"> ${pass.innerHTML}</ion-text></ion-item><br>`)
             document.getElementById("saved").innerHTML = localStorage.getItem("data")
             document.getElementById("badge").innerHTML = localStorage.getItem("count")
+            const searchbar = document.getElementById('search');
+    const items = Array.from(document.getElementById('saved').children);
+
+      searchbar.addEventListener('ionInput', handleInput);
+
+      function handleInput(event) {
+        const query = event.target.value.toLowerCase();
+        requestAnimationFrame(() => {
+          items.forEach((item) => {
+            const shouldShow = item.textContent.toLowerCase().indexOf(query) > -1;
+            item.style.display = shouldShow ? 'block' : 'none';
+          });
+        });
+      }
         }
         
     }
@@ -121,7 +146,7 @@ window.addEventListener('load', (event) => {
     document.getElementById("badge").innerHTML = localStorage.getItem("count")
     document.getElementById("saved").innerHTML = localStorage.getItem("data")
     const searchbar = document.getElementById('search');
-      const items = Array.from(document.getElementById('saved').children);
+    const items = Array.from(document.getElementById('saved').children);
 
       searchbar.addEventListener('ionInput', handleInput);
 
