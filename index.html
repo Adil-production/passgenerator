@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password generator for each Website</title>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+<script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css"/>
+</head>
+<body>
+    <ion-app>
+        <ion-tabs>
+
+            <ion-tab tab="tab-schedule">
+              <ion-header>
+                  <ion-toolbar>
+                      <ion-title>Generate password</ion-title>
+                  </ion-toolbar>
+              </ion-header>
+              <ion-content class="ion-padding">
+                    <ion-item>
+                        <ion-label position="floating">Name the password</ion-label>
+                        <ion-input id="name"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="floating">Length</ion-label>
+                        <ion-input id="length"></ion-input>
+                    </ion-item>
+                    <br>
+                    <div align="center">
+                        <ion-button onclick="generatePassword()" id="generate">Generate the Password</ion-button>
+                        <br>
+                        <br>
+                        <h4 id="generatedPassword"></h4>
+                        <br>
+                        <br>
+                        <ion-button onclick="done()" id="done" style="display: none;">Done</ion-button>
+                    </div>
+                </ion-content>
+            </ion-tab>
+          
+            <ion-tab tab="tab-speaker">
+              <ion-header>
+                  <ion-toolbar>
+                      <ion-title>Saved</ion-title>
+                  </ion-toolbar>
+                  <ion-toolbar>
+                    <ion-searchbar id="search"></ion-searchbar>
+                  </ion-toolbar>
+              </ion-header>
+              <ion-content>
+                  <br>
+                  <ion-list id="saved"></ion-list>
+              </ion-content>
+            </ion-tab>
+          
+
+          
+            <ion-tab-bar slot="bottom">
+              <ion-tab-button tab="tab-schedule">
+                <ion-icon name="home"></ion-icon>
+                <ion-label>Home</ion-label>
+              </ion-tab-button>
+              <ion-tab-button tab="tab-speaker">
+                <ion-icon name="bookmark"></ion-icon>
+                <ion-label>Saved</ion-label>
+                <ion-badge id="badge"></ion-badge>
+              </ion-tab-button>
+          </ion-tabs>
+    </ion-app>
+    <script>
+function generatePassword() {
+    document.getElementById("generate").innerHTML = "Change the password";
+    var length = Number(document.getElementById("length").value),
+        charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+        retVal = "";
+        if (isFinite(length)) {
+            for (var i = 0, n = charset.length; i < length; ++i) {
+                retVal += charset.charAt(Math.floor(Math.random() * n));
+            }
+            document.getElementById("done").style.display = "block";
+            document.getElementById("generatedPassword").innerHTML = retVal;
+        } else{
+            alert("Error length")
+        }
+    
+} function done(){
+    var data = localStorage.getItem("data");
+    if(data){
+        //exist
+        localStorage.setItem("count", Number(localStorage.getItem("count")) + 1)
+        var name = document.getElementById("name");
+        var pass = document.getElementById("generatedPassword");
+        var data = localStorage.getItem("data");
+        if(name.value == "" || document.getElementById("length").value < 3){
+            alert("Sorry, You can't supply")
+        }else{
+            localStorage.setItem("data",data + `<ion-item style="padding:5px;">Name : <ion-text color="primary"> ${name.value}</ion-text> , Password : <ion-text color="primary"> ${pass.innerHTML}</ion-text></ion-item><br>`)
+            document.getElementById("saved").innerHTML = localStorage.getItem("data")
+            document.getElementById("badge").innerHTML = localStorage.getItem("count")
+        }
+
+    } else{
+        localStorage.setItem("count", 1)
+        var name = document.getElementById("name");
+        var pass = document.getElementById("generatedPassword");
+        var data = localStorage.getItem("data");
+        if(name.value == "" || document.getElementById("length").value < 3){
+            alert("Sorry, You can't supply")
+        } else{
+            localStorage.setItem("data",`<ion-item style="padding:5px;">Name : <ion-text color="primary"> ${name.value}</ion-text> , Password : <ion-text color="primary"> ${pass.innerHTML}</ion-text></ion-item><br>`)
+            document.getElementById("saved").innerHTML = localStorage.getItem("data")
+            document.getElementById("badge").innerHTML = localStorage.getItem("count")
+        }
+        
+    }
+}
+window.addEventListener('load', (event) => {
+    document.getElementById("badge").innerHTML = localStorage.getItem("count")
+    document.getElementById("saved").innerHTML = localStorage.getItem("data")
+    const searchbar = document.getElementById('search');
+      const items = Array.from(document.getElementById('saved').children);
+
+      searchbar.addEventListener('ionInput', handleInput);
+
+      function handleInput(event) {
+        const query = event.target.value.toLowerCase();
+        requestAnimationFrame(() => {
+          items.forEach((item) => {
+            const shouldShow = item.textContent.toLowerCase().indexOf(query) > -1;
+            item.style.display = shouldShow ? 'block' : 'none';
+          });
+        });
+      }
+});
+
+    
+    </script>
+</body>
+</html>
