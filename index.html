@@ -88,7 +88,7 @@
 function generatePassword() {
     document.getElementById("generate").innerHTML = "Change the password";
     var length = Number(document.getElementById("length").value),
-        charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+        charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-+={[}]|:;\'<,>.?/",
         retVal = "";
         if (isFinite(length)) {
             for (var i = 0, n = charset.length; i < length; ++i) {
