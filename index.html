@@ -97,7 +97,6 @@
               <ion-tab-button tab="tab-speaker" >
                 <ion-icon name="bookmark" color="tertiary"></ion-icon>
                 <ion-label color="tertiary">Saved</ion-label>
-                <ion-badge id="badge" ></ion-badge>
               </ion-tab-button>
           </ion-tabs>
     </ion-app>
@@ -147,7 +146,6 @@ function generatePassword() {
                 
             `)
             document.getElementById("saved").innerHTML = localStorage.getItem("data")
-            document.getElementById("badge").innerHTML = localStorage.getItem("count")
             window.location.reload()
         }
 
@@ -166,14 +164,13 @@ function generatePassword() {
             </div>
             `)
             document.getElementById("saved").innerHTML = localStorage.getItem("data")
-            document.getElementById("badge").innerHTML = localStorage.getItem("count")
+
             window.location.reload()
         }
         
     }
 }
 window.addEventListener('load', (event) => {
-    document.getElementById("badge").innerHTML = localStorage.getItem("count")
     document.getElementById("saved").innerHTML = localStorage.getItem("data")
     const searchbar = document.getElementById('search');
     const items = Array.from(document.getElementById('saved').children);
