@@ -4,191 +4,33 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Password generator for each Website</title>
-    <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
-<script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css"/>
-<style>
-    .item5{
-        width: 100%;
-        padding: 8px;
-        border-bottom: 0.2px solid rgb(49, 49, 49);
-    }
-    #inputs{
-        position: absolute;
-        top: 40%;
-        left: 50%;
-        transform: translate(-50%,-50%);
-        width: 100%;
-        padding: 8px;
-    }
-</style>
+    <title>Porbet PG</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <style>
+        #container{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        }
+    </style>
 </head>
 <body>
-    <ion-app>
-        <ion-tabs>
-
-            <ion-tab tab="tab-schedule">
-              <ion-header>
-                  <ion-toolbar>
-                      <ion-title><span style="color: #5260ff !important;">Generate password</span></ion-title>
-                  </ion-toolbar>
-              </ion-header>
-              <ion-content class="ion-padding">
-                    <div id="inputs">
-                        <ion-item>
-                            <ion-label position="floating" color="dark">Website or e-mail</ion-label>
-                            <ion-input id="name" ></ion-input>
-                        </ion-item>
-                        <ion-item>
-                            <ion-label position="floating" color="dark">Length</ion-label>
-                            <ion-input id="length"></ion-input>
-                        </ion-item>
-                        <br>
-                        <span style="margin-left: 10px; color: rgb(241, 176, 36);"> * Recommended length is 10 or more</span>
-                    </div>
-                    <br>
-                    <ion-fab vertical="bottom"  horizontal="center" slot="fixed">
-                        <ion-fab-button onclick="done()" color="success" id="done" style="display: none;">
-                            <ion-icon name="checkmark-outline"></ion-icon>
-                        </ion-fab-button>
-                      </ion-fab>
-                    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-                        <ion-fab-button onclick="generatePassword()" color="tertiary"  id="generate">
-                          <ion-icon name="add"></ion-icon>
-                        </ion-fab-button>
-                      </ion-fab>
-
-                    <div align="center">
-                        
-                        <br>
-                        <br>
-                        <h4 id="generatedPassword"></h4>
-                        <br>
-                        <br>
-                    </div>
-                </ion-content>
-            </ion-tab>
-          
-            <ion-tab tab="tab-speaker">
-              <ion-header>
-                  <ion-toolbar>
-                      <ion-title><span style="color: #5260ff !important;">Saved</span></ion-title>
-                  </ion-toolbar>
-                  <ion-toolbar>
-                    <ion-searchbar id="search"></ion-searchbar>
-                  </ion-toolbar>
-              </ion-header>
-              <ion-content>
-                  <br>
-                  <ion-fab horizontal="end" vertical="bottom" slot="fixed" onclick="delet()">
-                    <ion-fab-button color="danger">
-                      <ion-icon name="trash-sharp"></ion-icon>
-                    </ion-fab-button>
-                  </ion-fab>
-                  <ion-list id="saved"></ion-list>
-              </ion-content>
-            </ion-tab>
-            <ion-tab-bar slot="bottom" >
-              <ion-tab-button tab="tab-schedule">
-                <ion-icon name="home" color="tertiary"></ion-icon>
-                <ion-label color="tertiary">Home</ion-label>
-              </ion-tab-button >
-              <ion-tab-button tab="tab-speaker" >
-                <ion-icon name="bookmark" color="tertiary"></ion-icon>
-                <ion-label color="tertiary">Saved</ion-label>
-              </ion-tab-button>
-          </ion-tabs>
-    </ion-app>
+    <div id="container" align="center">
+        <img src="https://porbet.github.io/store/icones/pass.png" width="100px" height="auto" />
+        <br>
+        <span style="color: gray;">Porbet PG</span>
+    </div>
     <script>
-      function delet(){
-                let confirmAction = confirm("Are you sure to execute this action?");
-                if (confirmAction) {
-                    localStorage.removeItem("data")
-                    localStorage.removeItem("count")
-                    window.location.reload()
-                    //yes
-                    alert("Action successfully executed");
-                } else {
-                    alert("Action canceled");
-                }
-            }
-function generatePassword() {
-    var length = Number(document.getElementById("length").value),
-        charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345678901234567890123456789!@@@@#$%^&*()_____________________________________-+={[}]|:;\'<,>.?/",
-        retVal = "";
-        if (isFinite(length)) {
-            for (var i = 0, n = charset.length; i < length; ++i) {
-                retVal += charset.charAt(Math.floor(Math.random() * n));
-            }
-            document.getElementById("done").style.display = "block";
-            document.getElementById("generatedPassword").innerHTML = retVal;
-        } else{
-            alert("Error length")
-        }
-    
-} function done(){
-    var data = localStorage.getItem("data");
-    if(data){
-        //exist
-        localStorage.setItem("count", Number(localStorage.getItem("count")) + 1)
-        var name = document.getElementById("name");
-        var pass = document.getElementById("generatedPassword");
-        var data = localStorage.getItem("data");
-        if(name.value == "" || document.getElementById("length").value < 3){
-            alert("Sorry, You can't supply")
-        }else{
-            localStorage.setItem("data",data + `
-                <div class="item5">
-                    <h4><strong style="color: #5260ff; margin:8px;">Website or e-mail : </strong> ${name.value}</h4> 
-                    <h4><strong style="color: #5260ff; margin:8px;">Password : </strong> ${pass.innerHTML}</h4> 
-                </div>
-                
-            `)
-            document.getElementById("saved").innerHTML = localStorage.getItem("data")
-            window.location.reload()
+        function sleep (time) {
+            return new Promise((resolve) => setTimeout(resolve, time));
         }
 
-    } else{
-        localStorage.setItem("count", 1)
-        var name = document.getElementById("name");
-        var pass = document.getElementById("generatedPassword");
-        var data = localStorage.getItem("data");
-        if(name.value == "" || document.getElementById("length").value < 3){
-            alert("Sorry, You can't supply")
-        } else{
-            localStorage.setItem("data",`
-            <div class="item5">
-                <h4><strong style="color: #5260ff; margin:8px;">Website or e-mail : </strong> ${name.value}</h4> 
-                <h4><strong style="color: #5260ff; margin:8px;">Password : </strong> ${pass.innerHTML}</h4> 
-            </div>
-            `)
-            document.getElementById("saved").innerHTML = localStorage.getItem("data")
-
-            window.location.reload()
-        }
-        
-    }
-}
-window.addEventListener('load', (event) => {
-    document.getElementById("saved").innerHTML = localStorage.getItem("data")
-    const searchbar = document.getElementById('search');
-    const items = Array.from(document.getElementById('saved').children);
-
-      searchbar.addEventListener('ionInput', handleInput);
-
-      function handleInput(event) {
-        const query = event.target.value.toLowerCase();
-        requestAnimationFrame(() => {
-          items.forEach((item) => {
-            const shouldShow = item.textContent.toLowerCase().indexOf(query) > -1;
-            item.style.display = shouldShow ? 'block' : 'none';
-          });
+        // Usage!
+        sleep(2000).then(() => {
+            window.location.href = "general.html"
         });
-      }
-});
-
-    
     </script>
 </body>
 </html>
